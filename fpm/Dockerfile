@@ -13,8 +13,11 @@ COPY etc/services.d/ /etc/services.d/
 COPY etc/cont-init.d/ /etc/cont-init.d/
 
 # Apply PHP configuration files
-COPY etc/php/fpm/pool.d/ /etc/php/8.1/fpm/pool.d/
-RUN mkdir /etc/php/8.1/fpm/custom/
+COPY etc/php/fpm/ /etc/php/8.1/fpm/
+
+# Logrotate
+# COPY etc/logrotate.d/php8.1-fpm /etc/logrotate.d/php8.1-fpm
+RUN rm /etc/logrotate.d/php8.1-fpm
 
 ENTRYPOINT ["/init" ]
 

@@ -16,6 +16,7 @@ RUN apt-get update \
     && echo "deb http://ppa.launchpad.net/ondrej/php/ubuntu focal main" > /etc/apt/sources.list.d/ondrej-php.list \
     && apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 4F4EA0AAE5267A6C \
     && apt-get update \
+    && apt-get -y --no-install-recommends install logrotate cron \
     && apt-get -y --no-install-recommends install \
         ca-certificates git curl unzip \
         php8.1-cli \
@@ -54,6 +55,16 @@ COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 COPY etc/cont-init.d/ /etc/cont-init.d/
 
 COPY etc/php/ /etc/php/8.1/cli/conf.d/
+
+# Cron: Remove defaults
+RUN rm -rf /etc/cron.d/* /etc/cron.daily/* /etc/cron.hourly/* /etc/cron.monthly/* /etc/cron.weekly/*
+
+# Logrotate
+COPY etc/cron.daily/logrotate /etc/cron.daily/logrotate
+RUN chmod +x /etc/cron.daily/logrotate
+RUN rm -rf /etc/logrotate.d/*
+
+RUN mkdir /etc_custom/
 
 # Set the default work directory to our web user
 WORKDIR /var/www/html
