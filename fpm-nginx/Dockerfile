@@ -46,6 +46,7 @@ RUN rm /etc/logrotate.d/nginx
 
 EXPOSE 80
 EXPOSE 443
+EXPOSE 5173
 
 ################################################################
 # Commenting these out for now because Traefik and Swarm
