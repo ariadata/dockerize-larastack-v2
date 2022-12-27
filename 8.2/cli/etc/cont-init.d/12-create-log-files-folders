@@ -1,0 +1,5 @@
+#!/usr/bin/with-contenv bash
+
+mkdir -p /var/log/php
+[ ! -f /var/log/php/cli-errors.log ] && touch /var/log/php/cli-errors.log
+chown -R webuser:webgroup /var/log/php/

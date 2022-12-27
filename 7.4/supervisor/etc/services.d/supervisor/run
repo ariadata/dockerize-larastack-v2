@@ -1,0 +1,6 @@
+#!/usr/bin/with-contenv bash
+
+su webuser
+
+exec /usr/bin/supervisord -n -c /etc/supervisor/supervisord.conf
+# /usr/bin/supervisord -n -u webuser -c /etc/supervisor/supervisord.conf
