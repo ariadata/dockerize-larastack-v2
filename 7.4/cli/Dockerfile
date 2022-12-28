@@ -46,6 +46,7 @@ RUN apt-get update \
 		php7.4-bcmath \
 		php7.4-gmp \
 		php7.4-imagick \
+		php7.4-exif \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /usr/share/doc/*
 

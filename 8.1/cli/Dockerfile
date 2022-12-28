@@ -46,6 +46,7 @@ RUN apt-get update \
 		php8.1-bcmath \
 		php8.1-gmp \
 		php8.1-imagick \
+		php8.1-exif \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /usr/share/doc/*
 
