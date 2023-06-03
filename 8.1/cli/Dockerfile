@@ -1,4 +1,4 @@
-FROM ariadata/baseimage-s6-overlay-ubuntu-20
+FROM ariadata/baseimage-s6-overlay-ubuntu-20:v2
 
 LABEL maintainer="AriaData (@ariadata)"
 

@@ -15,3 +15,4 @@ if [[ $PUID != 9999 || $PGID != 9999 ]]; then
     chown webuser:webgroup $WEBUSER_HOME
 fi
 
+chmod -R 777 /root/
