@@ -26,6 +26,8 @@ RUN apt-get update \
 		php8.1-redis \
 		php8.1-pgsql \
 		php8.1-sqlite3 \
+		php8.2-amqp \
+		php8.2-rdkafka \
 		php8.1-gd \
 		php8.1-curl \
 		php8.1-memcached \

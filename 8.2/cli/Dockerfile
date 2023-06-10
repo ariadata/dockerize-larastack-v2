@@ -26,6 +26,8 @@ RUN apt-get update \
 		php8.2-redis \
 		php8.2-pgsql \
 		php8.2-sqlite3 \
+		php8.2-amqp \
+		php8.2-rdkafka \
 		php8.2-gd \
 		php8.2-curl \
 		php8.2-memcached \
@@ -46,6 +48,7 @@ RUN apt-get update \
 		php8.2-bcmath \
 		php8.2-gmp \
 		php8.2-imagick \
+		php8.2-exif \
 		php8.2-exif \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /usr/share/doc/*
