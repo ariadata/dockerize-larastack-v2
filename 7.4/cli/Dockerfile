@@ -26,8 +26,8 @@ RUN apt-get update \
 		php7.4-redis \
 		php7.4-pgsql \
 		php7.4-sqlite3 \
-		php8.2-amqp \
-		php8.2-rdkafka \
+		php7.4-amqp \
+		php7.4-rdkafka \
 		php7.4-gd \
 		php7.4-curl \
 		php7.4-memcached \
