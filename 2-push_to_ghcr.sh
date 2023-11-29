@@ -39,3 +39,13 @@ docker tag ariadata/php-8.2:fpm-nginx ghcr.io/ariadata/dockerize-larastack-v2/ph
 docker push ghcr.io/ariadata/dockerize-larastack-v2/php-8.2:fpm-nginx
 docker tag ariadata/php-8.2:supervisor ghcr.io/ariadata/dockerize-larastack-v2/php-8.2:supervisor
 docker push ghcr.io/ariadata/dockerize-larastack-v2/php-8.2:supervisor
+
+echo "Start pushing 8.3\n"
+docker tag ariadata/php-8.3:cli ghcr.io/ariadata/dockerize-larastack-v2/php-8.3:cli
+docker push ghcr.io/ariadata/dockerize-larastack-v2/php-8.3:cli
+docker tag ariadata/php-8.3:fpm ghcr.io/ariadata/dockerize-larastack-v2/php-8.3:fpm
+docker push ghcr.io/ariadata/dockerize-larastack-v2/php-8.3:fpm
+docker tag ariadata/php-8.3:fpm-nginx ghcr.io/ariadata/dockerize-larastack-v2/php-8.3:fpm-nginx
+docker push ghcr.io/ariadata/dockerize-larastack-v2/php-8.3:fpm-nginx
+docker tag ariadata/php-8.3:supervisor ghcr.io/ariadata/dockerize-larastack-v2/php-8.3:supervisor
+docker push ghcr.io/ariadata/dockerize-larastack-v2/php-8.3:supervisor
