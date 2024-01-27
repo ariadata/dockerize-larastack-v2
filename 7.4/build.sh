@@ -2,13 +2,14 @@
 
 # exit when any command fails
 set -e
+PHP_VERSION=7.4
 
-docker build -t ariadata/php-7.4:cli ./cli/
+docker build -t ariadata/php-$PHP_VERSION:cli ./cli/
 
-docker build -t ariadata/php-7.4:fpm ./fpm/
+docker build -t ariadata/php-$PHP_VERSION:fpm ./fpm/
 
-docker build -t ariadata/php-7.4:fpm-nginx ./fpm-nginx/
+docker build -t ariadata/php-$PHP_VERSION:fpm-nginx ./fpm-nginx/
 
-docker build -t ariadata/php-7.4:supervisor ./supervisor/
+docker build -t ariadata/php-$PHP_VERSION:supervisor ./supervisor/
 
 echo "\n🔥 Build Done!"
