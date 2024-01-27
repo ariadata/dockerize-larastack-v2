@@ -3,9 +3,20 @@ FROM ariadata/php-${PHP_VERSION}:fpm
 
 LABEL maintainer="AriaData (@ariadata)"
 
-ENV NODE_VERSION 21.5.0
+ENV NODE_VERSION 21.6.1
 ENV YARN_VERSION 1.22.19
 ENV ARCH x64
+
+RUN apt-get update \
+	&& echo "Install requirements..." \
+	&& apt-get -y --no-install-recommends install curl gnupg2 ca-certificates lsb-release \
+	&& curl https://nginx.org/keys/nginx_signing.key | gpg --dearmor | tee /usr/share/keyrings/nginx-archive-keyring.gpg >/dev/null \
+	&& echo "deb [signed-by=/usr/share/keyrings/nginx-archive-keyring.gpg] http://nginx.org/packages/ubuntu `lsb_release -cs` nginx" | tee /etc/apt/sources.list.d/nginx.list \
+	&& apt-get update && apt-get -y --no-install-recommends install nginx \
+	&& echo "Fixing permissions issues on the webroot..." \
+	&& chown -R webuser:webgroup /var/www/html/ \
+	&& apt-get clean \
+	&& rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /usr/share/doc/* /var/www/html/*
 
 RUN export GNUPGHOME="$(mktemp -d)" && set -ex \
 	&& apt-get update \
