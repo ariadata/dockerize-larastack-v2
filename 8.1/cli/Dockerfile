@@ -1,4 +1,4 @@
-FROM ariadata/baseimage-s6-overlay-ubuntu-20:v2
+FROM ariadata/baseimage-s6-overlay-ubuntu-20:jammy
 
 LABEL maintainer="AriaData (@ariadata)"
 
@@ -8,12 +8,12 @@ ENV DEBIAN_FRONTEND=noninteractive \
     PUID=9999 \
     PGID=9999
 
-# Install Ondrej repos for Ubuntu focal, PHP8.1, composer and selected extensions
+# Install Ondrej repos for Ubuntu jammy, PHP8.1, composer and selected extensions
 RUN apt-get update \
     && groupadd -r -g $PGID webgroup \
     && useradd --no-log-init -r -s /usr/bin/bash -d $WEBUSER_HOME -u $PUID -g $PGID webuser \
     && apt-get install -y --no-install-recommends gnupg \
-    && echo "deb http://ppa.launchpad.net/ondrej/php/ubuntu focal main" > /etc/apt/sources.list.d/ondrej-php.list \
+    && echo "deb http://ppa.launchpad.net/ondrej/php/ubuntu jammy main" > /etc/apt/sources.list.d/ondrej-php.list \
     && apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 4F4EA0AAE5267A6C \
     && apt-get update \
     && apt-get -y --no-install-recommends install logrotate cron \
