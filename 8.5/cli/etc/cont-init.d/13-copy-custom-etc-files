@@ -1,0 +1,9 @@
+#!/usr/bin/with-contenv bash
+
+if [ -d /etc_custom ] && [ ! -z "$(ls -A -- "/etc_custom")" ]; then
+  mkdir -p /root/etc_custom
+  cp -rf /etc_custom/* /root/etc_custom/
+  chown -R root:root /root/etc_custom/
+  cp -rf /root/etc_custom/* /etc/
+  rm -rf /root/etc_custom/
+fi

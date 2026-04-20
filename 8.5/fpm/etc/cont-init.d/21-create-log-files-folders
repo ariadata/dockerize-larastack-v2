@@ -1,0 +1,7 @@
+#!/usr/bin/with-contenv bash
+
+[ ! -f /var/log/php/www-errors.log ] && touch /var/log/php/www-errors.log
+[ ! -f /var/log/php/www-slow.log ] && touch /var/log/php/www-slow.log
+[ ! -f /var/log/php/php-fpm.log ] && touch /var/log/php/php-fpm.log
+
+chown -R webuser:webgroup /var/log/php/

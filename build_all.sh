@@ -9,3 +9,4 @@ echo "Building 8.1" && cd ./8.1/ && bash build.sh && cd ..
 echo "Building 8.2" && cd ./8.2/ && bash build.sh && cd ..
 echo "Building 8.3" && cd ./8.3/ && bash build.sh && cd ..
 echo "Building 8.4" && cd ./8.4/ && bash build.sh && cd ..
+echo "Building 8.5" && cd ./8.5/ && bash build.sh && cd ..

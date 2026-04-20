@@ -1,0 +1,5 @@
+#!/usr/bin/with-contenv bash
+
+# Exit on error
+set -e
+chown -R webuser:webgroup /var/supervisor/
