@@ -1,11 +1,12 @@
 ARG PHP_VERSION=7.4
 FROM ariadata/php-${PHP_VERSION}:fpm
+ARG PHP_VERSION
 
 LABEL maintainer="AriaData (@ariadata)"
 
-ENV NODE_VERSION 21.6.1
-ENV YARN_VERSION 1.22.19
-ENV ARCH x64
+ENV NODE_VERSION=21.6.1 \
+	YARN_VERSION=1.22.19 \
+	ARCH=x64
 
 RUN apt-get update \
 	&& echo "Install requirements..." \
@@ -49,8 +50,9 @@ RUN export GNUPGHOME="$(mktemp -d)" && set -ex \
 	&& for key in \
 	6A010C5166006599AA17F08146C2130DFD2497F5 \
 	; do \
-	gpg --batch --keyserver hkps://keys.openpgp.org --recv-keys "$key" || \
-	gpg --batch --keyserver keyserver.ubuntu.com --recv-keys "$key" ; \
+	# fingerprint check forces fallback when keys.openpgp.org returns a UID-less key (skipped import)
+	{ gpg --batch --keyserver hkps://keys.openpgp.org --recv-keys "$key" && gpg --batch --fingerprint "$key"; } || \
+	{ gpg --batch --keyserver keyserver.ubuntu.com --recv-keys "$key" && gpg --batch --fingerprint "$key"; } ; \
 	done \
 	&& curl -fsSLO --compressed "https://yarnpkg.com/downloads/$YARN_VERSION/yarn-v$YARN_VERSION.tar.gz" \
 	&& curl -fsSLO --compressed "https://yarnpkg.com/downloads/$YARN_VERSION/yarn-v$YARN_VERSION.tar.gz.asc" \
@@ -74,7 +76,7 @@ COPY etc/cont-init.d/ /etc/cont-init.d/
 COPY etc/nginx/ /etc/nginx/
 
 #PHP: Copy PHP configurations
-COPY etc/php/${PHP_VERSION}/fpm/pool.d/ /etc/php/${PHP_VERSION}/fpm/pool.d/
+COPY etc/php/fpm/pool.d/ /etc/php/${PHP_VERSION}/fpm/pool.d/
 
 EXPOSE 80
 EXPOSE 443

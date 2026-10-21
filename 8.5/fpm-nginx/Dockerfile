@@ -1,5 +1,6 @@
 ARG PHP_VERSION=8.5
 FROM ariadata/php-${PHP_VERSION}:fpm
+ARG PHP_VERSION
 
 LABEL maintainer="AriaData (@ariadata)"
 

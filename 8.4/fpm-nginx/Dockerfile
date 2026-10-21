@@ -1,5 +1,6 @@
 ARG PHP_VERSION=8.4
 FROM ariadata/php-${PHP_VERSION}:fpm
+ARG PHP_VERSION
 
 LABEL maintainer="AriaData (@ariadata)"
 
@@ -53,8 +54,9 @@ RUN export GNUPGHOME="$(mktemp -d)" && set -ex \
     && for key in \
         6A010C5166006599AA17F08146C2130DFD2497F5 \
     ; do \
-        gpg --batch --keyserver hkps://keys.openpgp.org --recv-keys "$key" || \
-        gpg --batch --keyserver keyserver.ubuntu.com --recv-keys "$key" ; \
+        # fingerprint check forces fallback when keys.openpgp.org returns a UID-less key (skipped import)
+        { gpg --batch --keyserver hkps://keys.openpgp.org --recv-keys "$key" && gpg --batch --fingerprint "$key"; } || \
+        { gpg --batch --keyserver keyserver.ubuntu.com --recv-keys "$key" && gpg --batch --fingerprint "$key"; } ; \
     done \
     && curl -fsSLO --compressed "https://yarnpkg.com/downloads/$YARN_VERSION/yarn-v$YARN_VERSION.tar.gz" \
     && curl -fsSLO --compressed "https://yarnpkg.com/downloads/$YARN_VERSION/yarn-v$YARN_VERSION.tar.gz.asc" \
