@@ -1,7 +1,12 @@
 #!/bin/bash
+set -euo pipefail
 
-# remove all images with pattern ariadata/php-:*
-docker rmi -f $(docker images | grep ariadata/php- | awk '{print $3}')
+# remove all images with pattern ariadata/php-*
+# use -q / --filter — docker images default table is not machine-parseable
+# ids=$(docker images -q --filter 'reference=ariadata/php-*' || true)
+# if [ -n "$ids" ]; then
+# 	docker rmi -f $ids
+# fi
 
 echo "Building 7.4" && cd ./7.4/ && bash build.sh && cd ..
 echo "Building 8.0" && cd ./8.0/ && bash build.sh && cd ..

@@ -8,13 +8,15 @@ ENV DEBIAN_FRONTEND=noninteractive \
     PUID=9999 \
     PGID=9999
 
-# Install Ondrej repos for Ubuntu focal, php7.4, composer and selected extensions
+# Install PHP from packages.sury.org (canonical; newer than Launchpad PPA), composer and selected extensions
+# Note: php7.4-swoole is not published on packages.sury.org (available on Launchpad PPA only for <8.2).
 RUN apt-get update \
     && groupadd -r -g $PGID webgroup \
     && useradd --no-log-init -r -s /usr/bin/bash -d $WEBUSER_HOME -u $PUID -g $PGID webuser \
-    && apt-get install -y --no-install-recommends gnupg \
-    && echo "deb http://ppa.launchpad.net/ondrej/php/ubuntu jammy main" > /etc/apt/sources.list.d/ondrej-php.list \
-    && apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 4F4EA0AAE5267A6C \
+    && apt-get install -y --no-install-recommends ca-certificates curl \
+    && curl -fsSLo /tmp/debsuryorg-archive-keyring.deb https://packages.sury.org/debsuryorg-archive-keyring.deb \
+    && dpkg -i /tmp/debsuryorg-archive-keyring.deb \
+    && echo "deb [signed-by=/usr/share/keyrings/debsuryorg-archive-keyring.gpg] https://packages.sury.org/php/ jammy main" > /etc/apt/sources.list.d/php-sury.list \
     && apt-get update \
     && apt-get -y --no-install-recommends install logrotate cron \
     && apt-get -y --no-install-recommends install \
@@ -42,7 +44,6 @@ RUN apt-get update \
 		php7.4-msgpack \
 		php7.4-igbinary \
 		php7.4-ldap \
-		php7.4-swoole \
 		php7.4-apcu \
 		php7.4-opcache \
 		php7.4-bcmath \
